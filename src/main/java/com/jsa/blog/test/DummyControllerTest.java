@@ -1,6 +1,10 @@
 package com.jsa.blog.test;
 
+import java.util.function.Supplier;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,8 +16,17 @@ import com.jsa.blog.repository.UserRepository;
 public class DummyControllerTest {
 
 	@Autowired
-	private UserRepository userRepository; 
-	
+	private UserRepository userRepository;
+
+	// http://localhost:8080/blog/dummy/user/3
+	@GetMapping("dummy/user/{id}")
+	public User detail(@PathVariable int id) {
+	    User user = userRepository.findById(id).orElseThrow(() -> 
+	        new IllegalArgumentException("해당 유저는 없습니다. id : " + id)
+	    );
+	    return user;
+	}
+
 	// http://localhost:8080/blog/dummy/join
 	@PostMapping("/dummy/join")
 	public String join(User user) {
