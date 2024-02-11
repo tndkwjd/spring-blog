@@ -5,8 +5,8 @@
 <div class="container">
 	<form>
 		<div class="form-group">
-			<label for="userName">이름:</label> <input type="text"
-				class="form-control" id="userName">
+			<label for="username">이름:</label> <input type="text"
+				class="form-control" id="username">
 		</div>
 
 		<div class="form-group">
@@ -21,5 +21,5 @@
 	</form>
 	<button id="btn-save" class="btn btn-secondary">회원가입</button>
 </div>
-<script src="/blog/js/user.js"></script>
+<script src="/js/user.js"></script>
 <%@ include file="../layout/footer.jsp"%>

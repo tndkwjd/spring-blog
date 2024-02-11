@@ -3,24 +3,24 @@
 
 <%@ include file="../layout/header.jsp"%>
 <div class="container">
-	<form>
+	<form action="/auth/loginProc" method="POST">
 		<div class="form-group">
-			<label for="userName">이름:</label> <input type="text"
-				class="form-control" id="userName">
+			<label for="username">이름:</label> 
+			<input type="text" name="username" class="form-control" id="username">
 		</div>
 
 		<div class="form-group">
-			<label for="password">비밀번호</label> <input type="password"
-				class="form-control" id="password">
+			<label for="password">비밀번호</label> 
+			<input type="password" name="password" class="form-control" id="password">
 		</div>
 
 		<div class="form-group form-check">
-			<label class="form-check-label"> <input
-				class="form-check-input" type="checkbox"> 로그인 상태 유지
+			<label class="form-check-label"> 
+			<input name="remember" class="form-check-input" type="checkbox"> 로그인 상태 유지
 			</label>
 		</div>
-	</form>
 	<button id="btn-login" class="btn btn-secondary">로그인</button>
+	</form>
 </div>
-<script src="/blog/js/user.js"></script>
+
 <%@ include file="../layout/footer.jsp"%>
