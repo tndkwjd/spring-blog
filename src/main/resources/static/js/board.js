@@ -4,9 +4,13 @@ let index = {
 			this.save();
 		});
 		
-		 $("#btn-search").on("click", () => {
-	            this.search();
+		 $("#btn-delete").on("click", () => {
+	        this.deleteById();
 	    });
+		 
+		 $("#btn-update").on("click", () => {
+			this.update();
+		});
 		 
 	},
 	
@@ -30,7 +34,48 @@ let index = {
 			alert(Json.stringify(error));
 		});  
 	
-	}
+	},
+	
+	deleteById: function(){
+		
+		let id = $("#id").text();
+			
+		$.ajax({
+			type: "DELETE",
+			url: "/api/board/"+id,
+			dataType: "json" 
+		}).done(function(resp){
+			alert("삭제가 완료되었습니다.");
+			location.href = "/";
+		}).fail(function(error){
+			alert(Json.stringify(error));
+		});  
+	},
+	
+
+	update: function(){
+		let id = $("#id").val();
+		
+		let data = {
+			title: $("#title").val(),
+			content: $("#content").val()
+		};
+		
+		$.ajax({
+			type: "PUT",
+			url: "/api/board/"+id,
+			data: JSON.stringify(data), 
+			contentType: "application/json; charset=utf-8",
+		}).done(function(resp){
+			alert("수정이 완료되었습니다.");
+			location.href = "/";
+		}).fail(function(error){
+			alert(Json.stringify(error));
+		});  
+	
+	},
+	
+	
 }
 
 index.init();

@@ -1,11 +1,12 @@
 package com.jsa.blog.controller.api;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,15 @@ public class BoardApiController {
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
 	}
 
+	@DeleteMapping("/api/board/{id}")
+	public ResponseDTO<Integer> deleteById(@PathVariable int id){
+		boardSerivce.delete(id);
+		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
+	}
 	
+	@PutMapping("/api/board/{id}")
+	public ResponseDTO<Integer> update(@PathVariable int id, @RequestBody Board board){
+		boardSerivce.update(id, board);
+		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
+	}
 }

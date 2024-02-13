@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jsa.blog.model.Board;
@@ -33,6 +34,18 @@ public class BoardController {
 		model.addAttribute("endPage", endPage);
 
 		return "index";
+	}
+	
+	@GetMapping("/board/{id}/updateForm")
+	public String updateForm(Model model, @PathVariable int id) {
+		model.addAttribute("board", boardService.listDetail(id));
+		return "board/updateForm";
+	}
+	
+	@GetMapping("/board/{id}")
+	public String findById(Model model, @PathVariable int id) {
+		model.addAttribute("board", boardService.listDetail(id));
+		return "board/detail";
 	}
 
 	@GetMapping("/board/saveForm")

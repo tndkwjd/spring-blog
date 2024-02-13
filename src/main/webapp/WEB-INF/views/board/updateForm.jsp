@@ -5,15 +5,16 @@
 
 <div class="container">
 	<form>
+		<input type="hidden" id="id" value="${board.id}"/>
 		<div class="form-group">
-			<input type="text" name="title" class="form-control" id="title">
+			<input type="text" class="form-control" name="title" id="title" value="${board.title}" >
 		</div>
 
 		<div class="form-group">
-			<textarea class="form-control summernote" rows="5" id="content"></textarea>
+			<textarea class="form-control summernote" rows="5" name="content" id="content">${board.content}</textarea>
 		</div>
 	</form>
-		<button id="btn-save" class="btn btn-secondary">등록</button>
+		<button id="btn-update" class="btn btn-secondary">수정</button>
 		<button class="btn btn-success" onclick="history.back()">목록</button>
 </div>
 

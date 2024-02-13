@@ -23,6 +23,7 @@ public class BoardSerivce {
 		boardRepository.save(board);
 	}
 	
+	@Transactional(readOnly = true)
 	public Page<Board> list(String keyword, String searchType, Pageable pageable){
 		
 		if ("title".equals(searchType)) {
@@ -33,7 +34,31 @@ public class BoardSerivce {
             return boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
         }
 		
+	}
 	
+	@Transactional(readOnly = true)
+	public Board listDetail(int id) {
+		return boardRepository.findById(id)
+				.orElseThrow(() -> { 
+					return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+		});
+	
+	}
+	
+	@Transactional
+	public void update(int id, Board requestBoard) {
+		Board board = boardRepository.findById(id)
+			.orElseThrow(() -> { 
+				return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
+		});
+		
+		board.setTitle(requestBoard.getTitle());
+		board.setContent(requestBoard.getContent());
+	}
+	
+	@Transactional
+	public void delete(int id) {
+		boardRepository.deleteById(id);
 	}
 
 }
