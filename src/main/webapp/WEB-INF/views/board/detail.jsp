@@ -23,6 +23,36 @@
 		<div>${board.content }</div>
 	</div>
 	<hr>
+	
+	<div class="card"> 
+	<form>
+	<input type="hidden" id="boardId" value="${board.id }"/>
+	<input type="hidden" id="userId" value="${reply.user.id }"/>
+		<div class="card-body">
+			<textarea class="form-control" rows="1" id="reply-content" required></textarea>
+		</div>
+		<div class="card-footer">
+			<button type="button" class="btn btn-secondary" id="btn-reply-save" >등록</button>
+		</div>
+	</form>
+	</div>
+	<br>
+	<div class="card">
+		<div class="card-header">댓글 리스트</div>
+		<ul class="list-group" id="reply-box">
+		<c:forEach var="reply" items="${board.replys}">
+ 			<li class="list-group-item d-flex justify-content-between" id="reply-${reply.id }"> 
+ 				<div>${reply.content }</div>
+				<div class="d-flex">
+ 					<div class="font-italic">작성자: ${reply.user.username}</div>
+ 				<c:if test="${reply.user.id  eq principal.user.id}">
+ 					<button class="badge" onclick="index.replyDelete(${board.id},${reply.id})">삭제</button>
+ 				</c:if>
+ 				</div>
+ 			</li>
+		</c:forEach>
+		</ul>
+	</div>
 </div>
 
 <script src="/js/board.js"></script>

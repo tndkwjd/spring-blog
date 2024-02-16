@@ -22,19 +22,29 @@ let index = {
 		// console.log(data);
 		
 		$.ajax({
-			// 회원가입 수행 요청
-			type: "POST",
-			url: "/auth/joinProc",
-			data: JSON.stringify(data), 
-			contentType: "application/json; charset=utf-8",
-		}).done(function(resp){
-			alert("회원가입이 완료되었습니다.");
-			console.log(resp);
-			location.href = "/";
-		}).fail(function(error){
-			alert(Json.stringify(error));
-		});  
-		
+		    type: "POST",
+		    url: "/auth/joinProc",
+		    data: JSON.stringify(data),
+		    contentType: "application/json; charset=utf-8",
+		  }).done(function(resp){
+			  if(resp.status === 500){
+			  Swal.fire({
+				icon: 'error',
+			    title: '해당 회원이 존재합니다.',
+		      showConfirmButton: true,
+			  });
+			  } else { 
+				  Swal.fire({
+				   icon: 'success',
+				   title: '회원가입이 완료되었습니다!',
+				   showConfirmButton: true,  
+		    }).then(function(){
+		      location.href = "/";
+		    });
+			  }
+		  }).fail(function(error){
+		    alert(JSON.stringify(error));
+		  });
 		}, 
 		
 		update: function(){
@@ -47,18 +57,22 @@ let index = {
 			};
 			
 			$.ajax({
-				type: "PUT",
-				url: "/user",
-				data: JSON.stringify(data), 
-				contentType: "application/json; charset=utf-8",
-			}).done(function(resp){
-				alert("정보 수정이 완료되었습니다.");
-				location.href = "/";
-			}).fail(function(error){
-				alert(Json.stringify(error));
-			});  
-		
-		},
+			    type: "PUT",
+			    url: "/user",
+			    data: JSON.stringify(data),
+			    contentType: "application/json; charset=utf-8",
+			  }).done(function(resp){
+			    Swal.fire({
+			      icon: 'success',
+			      title: '정보 수정이 완료되었습니다!',
+			      showConfirmButton: true,
+			    }).then(function(){
+			      location.href = "/";
+			    });
+			  }).fail(function(error){
+			    alert(JSON.stringify(error));
+			  });
+			},
 	
 }
 
